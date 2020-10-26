@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "gale/shapley"
+require "gale_shapley"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

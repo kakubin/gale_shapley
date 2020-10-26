@@ -1,6 +1,6 @@
-RSpec.describe Gale::Shapley do
+RSpec.describe GaleShapley do
   it "has a version number" do
-    expect(Gale::Shapley::VERSION).not_to be nil
+    expect(GaleShapley::VERSION).not_to be nil
   end
 
   it "does something useful" do

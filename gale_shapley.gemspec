@@ -1,21 +1,21 @@
-require_relative 'lib/gale/shapley/version'
+require_relative 'lib/gale_shapley/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "gale-shapley"
-  spec.version       = Gale::Shapley::VERSION
+  spec.name          = "gale_shapley"
+  spec.version       = GaleShapley::VERSION
   spec.authors       = ["hikasa_akito"]
   spec.email         = ["wetsand.wfs@gmail.com"]
 
-  spec.summary       = %q{matching algorithm}
+  spec.summary       = %q{matching algorithm  }
   spec.description   = %q{}
-  spec.homepage      = "https://github.com/mrbigass/gale-shapley"
+  spec.homepage      = "https://github.com/mrbigass/gale_shapley"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
 
   spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/mrbigass/gale-shapley"
+  spec.metadata["source_code_uri"] = "https://github.com/mrbigass/gale_shapley"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
