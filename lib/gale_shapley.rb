@@ -1,6 +1,3 @@
 require 'gale_shapley/version'
-
-module GaleShapley
-  class Error < StandardError; end
-  # Your code goes here...
-end
+require 'gale_shapley/preference'
+require 'gale_shapley/pastor'
