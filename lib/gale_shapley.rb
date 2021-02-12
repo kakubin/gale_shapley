@@ -1,4 +1,4 @@
-require 'gale_shapley/version'
+require_relative './gale_shapley/version'
 
 class GaleShapley
   def initialize(girls_ranks, boys_ranks)
