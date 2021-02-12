@@ -26,12 +26,11 @@ class GaleShapley
           opponent_rank = girls_rank.index(@pairs[girl].to_s)
 
           if my_rank < opponent_rank
-            # pairの入れ替え
-            @pairs[girl] = proposing_boy
+            she_is_my_girl(girl, proposing_boy)
           end
 
         else # 競合しなかった場合
-          @pairs[girl] = proposing_boy
+          she_is_my_girl(girl, proposing_boy)
         end
 
         @positions[proposing_boy] += 1
@@ -40,6 +39,13 @@ class GaleShapley
 
     # @pairs.map { { _1 => _2.to_s } }
     @pairs
+  end
+
+  private
+
+  # pairの入れ替え
+  def she_is_my_girl(girl, me)
+    @pairs[girl] = me
   end
 end
 
