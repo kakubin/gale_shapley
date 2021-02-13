@@ -17,18 +17,17 @@ class GaleShapley
         girl = @boys_ranks[proposing_boy][position]
 
         # 既に相手がいる場合
-        if @pairs.has_key?(girl)
+        if opponent = @pairs[girl]&.to_s
           # 自分と敵対者の順位を調べて比較する
-          girls_rank = @girls_ranks[girl.to_s.to_sym]
-          my_rank = girls_rank.index(proposing_boy.to_s)
-          opponent_rank = girls_rank.index(@pairs[girl].to_s)
+          my_rank = mans_priority(girl, proposing_boy)
+          opponent_rank = mans_priority(girl, opponent)
 
           if my_rank < opponent_rank
-            she_is_my_girl(girl, proposing_boy)
+            she_is_mine(girl, proposing_boy)
           end
 
         else # 競合しなかった場合
-          she_is_my_girl(girl, proposing_boy)
+          she_is_mine(girl, proposing_boy)
         end
 
         @positions[proposing_boy] += 1
@@ -43,9 +42,11 @@ class GaleShapley
 
   private
 
-  # pairの入れ替え
-  def she_is_my_girl(girl, me)
+  def she_is_mine(girl, me)
     @pairs[girl] = me
   end
-end
 
+  def mans_priority(girl, man)
+    @girls_ranks[girl.to_s.to_sym].index(man.to_s)
+  end
+end
