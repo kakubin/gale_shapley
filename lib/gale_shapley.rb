@@ -35,7 +35,9 @@ class GaleShapley
       end
     end
 
-    # @pairs.map { { _1 => _2.to_s } }
+    @pairs.keys.each do
+      @pairs[_1] = @pairs[_1].to_s
+    end
     @pairs
   end
 

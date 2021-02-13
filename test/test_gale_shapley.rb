@@ -20,9 +20,9 @@ class TestGaleShapley < Test::Unit::TestCase
     results = obj.marriage
     assert_equal results.empty?, false
     assert_equal results.length, 4
-    assert_equal results['1'].to_s , 'a'
-    assert_equal results['2'].to_s , 'c'
-    assert_equal results['3'].to_s , 'b'
-    assert_equal results['4'].to_s , 'd'
+    assert_equal results['1'] , 'a'
+    assert_equal results['2'] , 'c'
+    assert_equal results['3'] , 'b'
+    assert_equal results['4'] , 'd'
   end
 end
