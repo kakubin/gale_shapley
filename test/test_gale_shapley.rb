@@ -25,4 +25,25 @@ class TestGaleShapley < Test::Unit::TestCase
     assert_equal results['3'] , 'b'
     assert_equal results['4'] , 'd'
   end
+
+  def test_kanji
+    girls_ranks = {
+      '結衣': ['孟', '進次郎', '太郎'],
+      '恵': ['進次郎', '太郎', '孟'],
+      '剛力': ['太郎', '孟', '進次郎'],
+    }
+    boys_ranks = {
+      '太郎': ['結衣', '剛力', '恵'],
+      '進次郎': ['結衣', '剛力', '恵'],
+      '孟': ['剛力', '結衣', '恵'],
+    }
+
+    obj = GaleShapley.new(girls_ranks, boys_ranks)
+    results = obj.marriage
+    assert_equal results.empty?, false
+    assert_equal results.length, 3
+    assert_equal results['結衣'] , '孟'
+    assert_equal results['恵'] , '進次郎'
+    assert_equal results['剛力'] , '太郎'
+  end
 end
