@@ -3,7 +3,7 @@ class GaleShapley
     @girls_ranks = {}
     @boys_ranks = {}
     @pairs = {}
-    @positions = {}
+    @positions = Hash.new(0)
 
     girls_ranks.keys.each do
       @girls_ranks[_1.to_s] = girls_ranks[_1]
@@ -19,17 +19,11 @@ class GaleShapley
       break if bachelors.empty?
 
       bachelors.each do |proposing_boy|
-        # 現在の順位を取得
-        position = @positions[proposing_boy] ||= 0
-        girl = @boys_ranks[proposing_boy][position]
+        girl = target_girl(proposing_boy)
 
         # 既に相手がいる場合
         if opponent = @pairs[girl]
-          # 自分と敵対者の順位を調べて比較する
-          my_rank = mans_priority(girl, proposing_boy)
-          opponent_rank = mans_priority(girl, opponent)
-
-          if my_rank < opponent_rank
+          if she_change?(girl, proposing_boy, opponent)
             she_is_mine(girl, proposing_boy)
           end
 
@@ -41,16 +35,25 @@ class GaleShapley
       end
     end
 
-    @pairs.keys.each do
-      @pairs[_1] = @pairs[_1]
-    end
     @pairs
   end
 
   private
 
+  def target_girl(proposing_boy)
+    position = @positions[proposing_boy]
+    @boys_ranks[proposing_boy][position]
+  end
+
   def she_is_mine(girl, me)
     @pairs[girl] = me
+  end
+
+  def she_change?(girl, proposer, opponent)
+    proposer_rank = mans_priority(girl, proposer)
+    opponent_rank = mans_priority(girl, opponent)
+
+    proposer_rank < opponent_rank
   end
 
   def mans_priority(girl, man)
