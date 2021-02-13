@@ -1,9 +1,16 @@
 class GaleShapley
   def initialize(girls_ranks, boys_ranks)
-    @girls_ranks = girls_ranks
-    @boys_ranks = boys_ranks
+    @girls_ranks = {}
+    @boys_ranks = {}
     @pairs = {}
     @positions = {}
+
+    girls_ranks.keys.each do
+      @girls_ranks[_1.to_s] = girls_ranks[_1]
+    end
+    boys_ranks.keys.each do
+      @boys_ranks[_1.to_s] = boys_ranks[_1]
+    end
   end
 
   def marriage
@@ -17,7 +24,7 @@ class GaleShapley
         girl = @boys_ranks[proposing_boy][position]
 
         # 既に相手がいる場合
-        if opponent = @pairs[girl]&.to_s
+        if opponent = @pairs[girl]
           # 自分と敵対者の順位を調べて比較する
           my_rank = mans_priority(girl, proposing_boy)
           opponent_rank = mans_priority(girl, opponent)
@@ -35,7 +42,7 @@ class GaleShapley
     end
 
     @pairs.keys.each do
-      @pairs[_1] = @pairs[_1].to_s
+      @pairs[_1] = @pairs[_1]
     end
     @pairs
   end
@@ -47,6 +54,6 @@ class GaleShapley
   end
 
   def mans_priority(girl, man)
-    @girls_ranks[girl.to_s.to_sym].index(man.to_s)
+    @girls_ranks[girl].index(man)
   end
 end
