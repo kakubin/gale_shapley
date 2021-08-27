@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test/unit'
 require './lib/gale_shapley.rb'
 
@@ -20,10 +22,10 @@ class TestGaleShapley < Test::Unit::TestCase
     results = obj.marriage
     assert_equal results.empty?, false
     assert_equal results.length, 4
-    assert_equal results['1'] , 'a'
-    assert_equal results['2'] , 'c'
-    assert_equal results['3'] , 'b'
-    assert_equal results['4'] , 'd'
+    assert_equal results['1'], 'a'
+    assert_equal results['2'], 'c'
+    assert_equal results['3'], 'b'
+    assert_equal results['4'], 'd'
   end
 
   def test_kanji
@@ -42,8 +44,8 @@ class TestGaleShapley < Test::Unit::TestCase
     results = obj.marriage
     assert_equal results.empty?, false
     assert_equal results.length, 3
-    assert_equal results['結衣'] , '孟'
-    assert_equal results['恵'] , '進次郎'
-    assert_equal results['剛力'] , '太郎'
+    assert_equal results['結衣'], '孟'
+    assert_equal results['恵'], '進次郎'
+    assert_equal results['剛力'], '太郎'
   end
 end
