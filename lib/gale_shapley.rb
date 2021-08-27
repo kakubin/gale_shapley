@@ -2,17 +2,11 @@
 
 class GaleShapley #:nodoc:
   def initialize(girls_ranks, boys_ranks)
-    @girls_ranks = {}
-    @boys_ranks = {}
     @pairs = {}
     @positions = Hash.new(0)
 
-    girls_ranks.each_key do
-      @girls_ranks[_1.to_s] = girls_ranks[_1]
-    end
-    boys_ranks.each_key do
-      @boys_ranks[_1.to_s] = boys_ranks[_1]
-    end
+    @girls_ranks = girls_ranks.transform_keys(&:to_s)
+    @boys_ranks = boys_ranks.transform_keys(&:to_s)
   end
 
   def marriage
