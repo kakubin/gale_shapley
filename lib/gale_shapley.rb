@@ -46,7 +46,9 @@ class GaleShapley #:nodoc:
       preference.size == @candidates_preferences.size
     end
 
-    raise UnproperSizeError, "can't resolve due to preference size" unless candidate_size_rightfullness && proposer_size_rightfullness
+    return if candidate_size_rightfullness && proposer_size_rightfullness
+
+    raise UnproperSizeError, "can't resolve due to preference size"
   end
 
   def target_candidate(proposer)
