@@ -19,7 +19,7 @@ class TestGaleShapley < Test::Unit::TestCase
     }
 
     obj = GaleShapley.new(girls_ranks, boys_ranks)
-    results = obj.marriage
+    results = obj.resolve
     assert_equal results.empty?, false
     assert_equal results.length, 4
     assert_equal results['1'], 'a'
@@ -41,7 +41,7 @@ class TestGaleShapley < Test::Unit::TestCase
     }
 
     obj = GaleShapley.new(girls_ranks, boys_ranks)
-    results = obj.marriage
+    results = obj.resolve
     assert_equal results.empty?, false
     assert_equal results.length, 3
     assert_equal results['結衣'], '孟'

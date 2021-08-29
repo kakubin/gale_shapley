@@ -1,31 +1,31 @@
 # frozen_string_literal: true
 
 class GaleShapley #:nodoc:
-  def initialize(girls_ranks, boys_ranks)
+  def initialize(candidates_preferences, proposers_preferences)
     @pairs = {}
-    @positions = Hash.new(0)
+    @negotiation_counts = Hash.new(0)
 
-    @girls_ranks = girls_ranks.transform_keys(&:to_s)
-    @boys_ranks = boys_ranks.transform_keys(&:to_s)
+    @candidates_preferences = candidates_preferences.transform_keys(&:to_s)
+    @proposers_preferences = proposers_preferences.transform_keys(&:to_s)
   end
 
-  def marriage
+  def resolve
     loop do
-      bachelors = @boys_ranks.keys - @pairs.values
-      break if bachelors.empty?
+      unallocateds = @proposers_preferences.keys - @pairs.values
+      break if unallocateds.empty?
 
-      bachelors.each do |proposing_boy|
-        girl = target_girl(proposing_boy)
+      unallocateds.each do |proposer|
+        candidate = target_candidate(proposer)
 
         # if she has married
-        opponent = @pairs[girl]
+        opponent = @pairs[candidate]
         if opponent
-          she_is_mine(girl, proposing_boy) if she_change?(girl, proposing_boy, opponent)
+          pairing(candidate, proposer) if she_change?(candidate, proposer, opponent)
         else # if he has no competitor
-          she_is_mine(girl, proposing_boy)
+          pairing(candidate, proposer)
         end
 
-        @positions[proposing_boy] += 1
+        @negotiation_counts[proposer] += 1
       end
     end
 
@@ -34,23 +34,22 @@ class GaleShapley #:nodoc:
 
   private
 
-  def target_girl(proposing_boy)
-    position = @positions[proposing_boy]
-    @boys_ranks[proposing_boy][position]
+  def target_candidate(proposer)
+    position = @negotiation_counts[proposer]
+    @proposers_preferences[proposer][position]
   end
 
-  def get_marriage(girl, boy)
-    @pairs[girl] = boy
+  def pairing(assentor, proposer)
+    @pairs[assentor] = proposer
   end
 
-  def she_change?(girl, proposer, opponent)
-    proposer_rank = mans_priority(girl, proposer)
-    opponent_rank = mans_priority(girl, opponent)
-
+  def she_change?(assentor, proposer, opponent)
+    proposer_rank = fetch_rank(assentor, proposer)
+    opponent_rank = fetch_rank(assentor, opponent)
     proposer_rank < opponent_rank
   end
 
-  def mans_priority(girl, man)
-    @girls_ranks[girl].index(man)
+  def fetch_rank(assentor, man)
+    @candidates_preferences[assentor].index(man)
   end
 end
