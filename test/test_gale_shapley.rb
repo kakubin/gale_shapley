@@ -28,6 +28,25 @@ class TestGaleShapley < Test::Unit::TestCase
     assert_equal results['4'], 'd'
   end
 
+  def test_size_error
+    girls_ranks = {
+      '1': ['a', 'b'],
+      '2': ['c', 'b', 'a'],
+      '3': ['a', 'b', 'c'],
+      '4': ['c', 'a', 'b']
+    }
+    boys_ranks = {
+      'a': ['1', '2', '3', '4'],
+      'b': ['2', '1', '4', '3'],
+      'c': ['2', '3', '1', '4']
+    }
+
+    e = assert_raises GaleShapley::UnproperSizeError do
+      GaleShapley.new(girls_ranks, boys_ranks)
+    end
+    assert_equal "can't resolve due to preference size", e.message
+  end
+
   def test_kanji
     girls_ranks = {
       '結衣': ['孟', '進次郎', '太郎'],

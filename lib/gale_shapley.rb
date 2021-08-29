@@ -1,12 +1,16 @@
 # frozen_string_literal: true
 
 class GaleShapley #:nodoc:
+  class UnproperSizeError < StandardError; end
+
   def initialize(candidates_preferences, proposers_preferences)
     @pairs = {}
     @negotiation_counts = Hash.new(0)
 
     @candidates_preferences = candidates_preferences.transform_keys(&:to_s)
     @proposers_preferences = proposers_preferences.transform_keys(&:to_s)
+
+    check_pairability
   end
 
   def resolve
@@ -33,6 +37,17 @@ class GaleShapley #:nodoc:
   end
 
   private
+
+  def check_pairability
+    candidate_size_rightfullness = @candidates_preferences.all? do |_, preference|
+      preference.size == @proposers_preferences.size
+    end
+    proposer_size_rightfullness = @proposers_preferences.all? do |_, preference|
+      preference.size == @candidates_preferences.size
+    end
+
+    raise UnproperSizeError, "can't resolve due to preference size" unless candidate_size_rightfullness && proposer_size_rightfullness
+  end
 
   def target_candidate(proposer)
     position = @negotiation_counts[proposer]
