@@ -24,11 +24,9 @@ class GaleShapley #:nodoc:
         girl = target_girl(proposing_boy)
 
         # if she has married
-        if opponent = @pairs[girl]
-          if she_change?(girl, proposing_boy, opponent)
-            she_is_mine(girl, proposing_boy)
-          end
-
+        opponent = @pairs[girl]
+        if opponent
+          she_is_mine(girl, proposing_boy) if she_change?(girl, proposing_boy, opponent)
         else # if he has no competitor
           she_is_mine(girl, proposing_boy)
         end
@@ -47,8 +45,8 @@ class GaleShapley #:nodoc:
     @boys_ranks[proposing_boy][position]
   end
 
-  def she_is_mine(girl, me)
-    @pairs[girl] = me
+  def get_marriage(girl, boy)
+    @pairs[girl] = boy
   end
 
   def she_change?(girl, proposer, opponent)
