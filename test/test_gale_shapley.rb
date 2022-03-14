@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'test/unit'
-require './lib/gale_shapley.rb'
+require 'gale_shapley'
 
 class TestGaleShapley < Test::Unit::TestCase
   def test_basic
@@ -18,8 +18,7 @@ class TestGaleShapley < Test::Unit::TestCase
       'd': ['1', '4', '3', '2'],
     }
 
-    obj = GaleShapley.new(girls_ranks, boys_ranks)
-    results = obj.resolve
+    results = GaleShapley.resolve(girls_ranks, boys_ranks)
     assert_equal results.empty?, false
     assert_equal results.length, 4
     assert_equal results['1'], 'a'
@@ -42,7 +41,7 @@ class TestGaleShapley < Test::Unit::TestCase
     }
 
     e = assert_raises GaleShapley::UnproperSizeError do
-      GaleShapley.new(girls_ranks, boys_ranks)
+      GaleShapley.resolve(girls_ranks, boys_ranks)
     end
     assert_equal "can't resolve due to preference size", e.message
   end
@@ -59,8 +58,7 @@ class TestGaleShapley < Test::Unit::TestCase
       '孟': ['剛力', '結衣', '恵'],
     }
 
-    obj = GaleShapley.new(girls_ranks, boys_ranks)
-    results = obj.resolve
+    results = GaleShapley.resolve(girls_ranks, boys_ranks)
     assert_equal results.empty?, false
     assert_equal results.length, 3
     assert_equal results['結衣'], '孟'
