@@ -20,7 +20,22 @@ Or install it yourself as:
 
 ## Usage
 
-I recommend NOT to use
+```ruby
+proposers_ranks = {
+  '1': ['a', 'b', 'c', 'd'],
+  '2': ['c', 'b', 'a', 'd'],
+  '3': ['a', 'b', 'd', 'c'],
+  '4': ['c', 'a', 'd', 'b'],
+}
+acceptors_ranks = {
+  'a': ['1', '2', '3', '4'],
+  'b': ['2', '1', '4', '3'],
+  'c': ['2', '3', '1', '4'],
+  'd': ['1', '4', '3', '2'],
+}
+GaleShapley.resolve(proposers_ranks, acceptors_ranks)
+#=> {"1"=>"a", "2"=>"c", "3"=>"b", "4"=>"d"}
+```
 
 ## Development
 
