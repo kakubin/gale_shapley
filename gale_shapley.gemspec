@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.description   = "This gem provide a basic algorithm to solve 'stable marriage problem'"
   spec.homepage      = 'https://github.com/mrbigass/gale_shapley'
   spec.license       = 'MIT'
-  spec.required_ruby_version = Gem::Requirement.new('>= 2.3.0')
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.5.0')
 
   spec.metadata = {
     'bug_tracker_uri' => 'https://github.com/kakubin/gale_shapley/issues',
